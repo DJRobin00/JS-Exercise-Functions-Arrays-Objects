@@ -167,8 +167,8 @@ function getCarInfoByIndex(inventory, index) {
 */
 function getLastCarInfo(arr) {
   
-  return `This is a ${arr[arr.length -1].car_make} 
-                    ${arr[arr.length -1].car_model}.`;
+  return `This is a ${arr[arr.length - 1].car_make} 
+                    ${arr[arr.length - 1].car_model}.`;
 }
 
 /**
@@ -184,6 +184,7 @@ function getLastCarInfo(arr) {
  * it will return `This is a Lincoln Navigator`.
 */
 function getCarInfoById(arr, num) {
+
   return `This is a ${arr[num].car_make} ${arr[num].car_model}.`
 }
 
@@ -196,9 +197,19 @@ function getCarInfoById(arr, num) {
  * sortCarInventory returns an inventory that is sorted by car_model, ascending [A-Z].
 */
 function sortCarInventory(arr) {
-  let model = [arr]
+  let model = [];
 
-  return model
+  model.push(arr[0].car_model);
+
+  for (let i = 0; i < arr.length; i++) {
+  
+    model.push(arr[i].car_model)
+
+  }
+
+  model.sort();
+
+  return model 
 }
 
 /**
@@ -213,14 +224,15 @@ function sortCarInventory(arr) {
 function getModelYears(arr) {
   let years = [];
     
+  years.shift(arr[0].car_year);
+
   for (let i = 0; i < arr.length; i++) {
       
   years.push(arr[i].car_year) 
-
-  return years
   
   }
-    
+
+  return years
     
 }
 
@@ -236,9 +248,19 @@ function getModelYears(arr) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(/* code here */) {
-  /* code here */
+function getOlderCars(arr, num) {
+  let years = [];
+
+  for (let i = 0; i < arr.length; i++) {
+      
+  years.push(arr[i].car_year) 
+
+  }
+
+  return years.find(num);
+      
 }
+
 
 /**
  * ### Challenge `getGermanCars`
@@ -251,11 +273,16 @@ function getOlderCars(/* code here */) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(german) {
+function getGermanCars(arr) {
 
-  arr = [];
+  let make = [];
 
+  for (let i = 0; i < arr.length; i++) {
 
+    make.push(arr[i].car_make === "Audi" || "Mercedes-Benz" || "Volkswagen" || "BMW" )
+    return make;
+
+  }
 
 }
 
@@ -277,9 +304,9 @@ function getGermanCars(german) {
  *   return num * 2
  * }
 */
-const sum = null; // code here!
-const addFive = null; // code here!
-const argTimesTwo = null; // code here!
+const sum = (a, b) => a + b;
+const addFive = num => num + 5;
+const argTimesTwo = (num) => num * 2;
 
 /**
  * ### Challenge `carMaker`
@@ -295,12 +322,11 @@ const argTimesTwo = null; // code here!
  *         (2) returns the updated value of the `odometer`.
 */
 function carMaker(number) {
-  // return {
-  //   odometer: number,
-  //   drive: function(n) {return this.number + n}
-  // }
+  return {
+    odometer: number,
+    drive: n => this.number + n
+  }
 
-  // return odometer;
 }
 
 /// ////// END OF CHALLENGE /////////
