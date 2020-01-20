@@ -279,10 +279,20 @@ function getGermanCars(arr) {
 
   for (let i = 0; i < arr.length; i++) {
 
-    make.push(arr[i].car_make === "Audi" || "Mercedes-Benz" || "Volkswagen" || "BMW" )
-    return make;
+    if (arr[i].car_make === "Audi") {
+      make.push(arr[i])
+    } else if (arr[i].car_make === "Mercedes-Benz") {
+      make.push(arr[i])
+    } else if (arr[i].car_make === "Volkswagen") {
+      make.push(arr[i])
+    }  else if (arr[i].car_make === "BMW") {
+      make.push(arr[i])
+    }
 
+    return make;
   }
+
+  return make;
 
 }
 
