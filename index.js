@@ -165,10 +165,10 @@ function getCarInfoByIndex(inventory, index) {
  * For example, if getLastCarInfo is invoked passing the inventory inside /data/inventory.js,
  * it will return `This is a Lincoln Town Car`.
 */
-function getLastCarInfo(arr) {
+function getLastCarInfo(inventory) {
   
-  return `This is a ${arr[arr.length - 1].car_make} 
-                    ${arr[arr.length - 1].car_model}.`;
+  return `This is a ${inventory[inventory.length - 1].car_make} 
+                    ${inventory[inventory.length - 1].car_model}.`;
 }
 
 /**
@@ -183,9 +183,9 @@ function getLastCarInfo(arr) {
  * For example, if getCarInfoById is invoked with the inventory and the number 1,
  * it will return `This is a Lincoln Navigator`.
 */
-function getCarInfoById(arr, num) {
+function getCarInfoById(inventory, num) {
 
-  return `This is a ${arr[num].car_make} ${arr[num].car_model}.`
+  return `This is a ${inventory[num-1].car_make} ${inventory[num-1].car_model}`
 }
 
 /**
@@ -196,20 +196,22 @@ function getCarInfoById(arr, num) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * sortCarInventory returns an inventory that is sorted by car_model, ascending [A-Z].
 */
-function sortCarInventory(arr) {
-  let model = [];
+function sortCarInventory(inventory) {
 
-  model.push(arr[0].car_model);
+  return inventory.sort(function(a, b){
+    a.car_model < b.car_model; 
 
-  for (let i = 0; i < arr.length; i++) {
-  
-    model.push(arr[i].car_model)
+    if (a.car_model < b.car_model) {
+      return -1
 
-  }
+    } else if (a.car_model > b.car_model) {
+      return 1
 
-  model.sort();
+    } else {
+      return 0
+    }
 
-  return model 
+  });
 }
 
 /**
@@ -221,19 +223,19 @@ function sortCarInventory(arr) {
  *     (1) an array which is an inventory of cars like the one inside /data/inventory.js.
  * getModelYears returns an array containing all the 'car_year's in the inventory.
 */
-function getModelYears(arr) {
+function getModelYears(inventory) {
   let years = [];
-    
-  years.shift(arr[0].car_year);
 
-  for (let i = 0; i < arr.length; i++) {
+
+  for (let i = 0; i < inventory.length; i++) {
       
-  years.push(arr[i].car_year) 
-  
-  }
+  years.push(inventory[i].car_year); 
 
+  }
+  
   return years
     
+ 
 }
 
 /**
@@ -248,16 +250,18 @@ function getModelYears(arr) {
  * with a `car_year` which is at most the given desired max year,
  * in the same order as they appear in the original inventory.
 */
-function getOlderCars(arr, num) {
+function getOlderCars(inventory, maxYear) {
   let years = [];
 
-  for (let i = 0; i < arr.length; i++) {
-      
-  years.push(arr[i].car_year) 
+  for (let i = 0; i < inventory.length; i++) {
+
+    if ( inventory[i].car_year <= maxYear ){
+
+    years.push(inventory[i]) }
 
   }
 
-  return years.find(num);
+  return years;
       
 }
 
@@ -273,23 +277,25 @@ function getOlderCars(arr, num) {
  * made by either `Audi` or `Mercedes-Benz` or `Volkswagen` or `BMW`,
  * in the same order as they appear in the original inventory.
 */
-function getGermanCars(arr) {
+function getGermanCars(inventory) {
 
   let make = [];
 
-  for (let i = 0; i < arr.length; i++) {
+  for (let i = 0; i < inventory.length; i++) {
 
-    if (arr[i].car_make === "Audi") {
-      make.push(arr[i])
-    } else if (arr[i].car_make === "Mercedes-Benz") {
-      make.push(arr[i])
-    } else if (arr[i].car_make === "Volkswagen") {
-      make.push(arr[i])
-    }  else if (arr[i].car_make === "BMW") {
-      make.push(arr[i])
+    if (inventory[i].car_make === "Audi") {
+      make.push(inventory[i])
+
+    } else if (inventory[i].car_make === "Mercedes-Benz") {
+      make.push(inventory[i])
+
+    } else if (inventory[i].car_make === "Volkswagen") {
+      make.push(inventory[i])
+
+    }  else if (inventory[i].car_make === "BMW") {
+      make.push(inventory[i])
     }
 
-    return make;
   }
 
   return make;
@@ -334,7 +340,7 @@ const argTimesTwo = (num) => num * 2;
 function carMaker(number) {
   return {
     odometer: number,
-    drive: n => this.number + n
+    drive: miles = () => this.number + miles
   }
 
 }
